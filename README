@@ -1,0 +1,46 @@
+This is a mirror of http://www.vim.org/scripts/script.php?script_id=2086
+
+FILE COMPOSITION:
+
+plugin/code-snippet.vim : a script file.
+doc/code-snippet.txt : an English help file.
+doc/code-snippet.jax : a Japanese help file.
+
+SUMMARY:
+
+This plugin provides a simple input assistance of code snippets.  A code snippet is an idiom much used in source codes or markuped texts.  Here are the basic steps to use (and they are almost all).
+
+        1. Register snippets (generally in filetype plugins).
+        2. Type a trigger string in the insert mode.
+        3. Press <S-CR> or <C-CR> to expand a snippet, and jump to each next/previous placeholder.
+        4. Press <CR> to fill in a placeholder.
+
+Snippets are registered as abbreviations.  You can therefore expand them by pressing <Esc> like mere abbreviations.
+
+Placeholders can contain default strings.
+
+This plugin is well configurable.  You can configure these points.
+
+        * Map commands to other keys.
+        * Use the select mode instead of the visual mode.
+        * Change the format of placeholders in general or buffer-local.
+
+EXAMPLE:
+
+Type like this in the commandline mode.
+
+        :StringAbbrLocal fputs() "fputs([~str~], [~fp:stderr~])[~~]"
+
+Then type like this in the insert mode.
+
+        fputs()
+
+And press <S-CR>.
+
+        fputs([~str~], [~fp:stderr~])[~~]
+
+The line is expanded like above and "[~str~]" is selected in the visual mode.  "[~ ... ~]" is a placeholder.  Each time you press <S-CR>, the cursor jumps to the next placeholder.  Press <C-CR> to jump back to the previous placeholder.
+
+When you press <CR>, the placeholder under the cursor is cut and Vim switches to the insert mode.  So that you can fill in the place.  Pressing <CR> at the second placeholder "[~fp:stderr~]", the default string "stderr" is inserted.  If you want to insert another word, it can be deleted by pressing <C-U> (see :help i_Ctrl-U).
+
+The last empty placeholder "[~~]" is not selected by <S-CR>, but simply deleted so that you can insert a semicolon and so on.
