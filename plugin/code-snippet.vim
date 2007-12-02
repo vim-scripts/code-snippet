@@ -1,7 +1,7 @@
 " code-snippet.vim: Simple input assistance of code snippets or idioms
 "
 " Maintainer:  MIYAKAWA Taku <ripjohn@s28.xrea.com>
-" Last Change: 2007-12-02.
+" Last Change: 2007-12-03.
 " Require:     Vim 7.0 or later
 
 " Initialization: {{{
@@ -34,16 +34,17 @@ function! s:StringAbbr(arg, local)
     throw 'StringAbbr: invalid parameter'
   endif
   let lhs = list[1]
-  let rhs = s:BraceEscape(eval(list[2]))
+  let rhs = s:EscapeSnippet(eval(list[2]))
   execute 'iabbrev ' . (a:local ? '<buffer> ' : '') . lhs . ' ' . rhs
 endfunction
 
-function! s:BraceEscape(text)
+function! s:EscapeSnippet(text)
   let esc = a:text
   let esc = substitute(esc, '<', '<lt>', 'g')
   let esc = substitute(esc, '\t', '<Tab>', 'g')
   let esc = substitute(esc, ' ', '<Space>', 'g')
   let esc = substitute(esc, '\\', '<Bslash>', 'g')
+  let esc = substitute(esc, '|', '<Bar>', 'g')
   let esc = substitute(esc, '\r\n\|\n\|\r', '<CR>', 'g')
   return esc
 endfunction
@@ -156,15 +157,15 @@ endfunction
 
 function! s:GetFormat()
   let opener = exists('b:CodeSnippet_opener') ? b:CodeSnippet_opener :
-        \ exists('g:CodeSnippet_opener') ? g:CodeSnippet_opener : '(_'
+        \ exists('g:CodeSnippet_opener') ? g:CodeSnippet_opener : '[|'
   let closer = exists('b:CodeSnippet_closer') ? b:CodeSnippet_closer :
-        \ exists('g:CodeSnippet_closer') ? g:CodeSnippet_closer : '_)'
+        \ exists('g:CodeSnippet_closer') ? g:CodeSnippet_closer : '|]'
   let defind = exists('b:CodeSnippet_defind') ? b:CodeSnippet_defind :
         \ exists('g:CodeSnippet_defind') ? g:CodeSnippet_defind : ':'
-  return [s:Escape(opener), s:Escape(closer), s:Escape(defind)]
+  return [s:EscapeFormat(opener), s:EscapeFormat(closer), s:EscapeFormat(defind)]
 endfunction
 
-function! s:Escape(text)
+function! s:EscapeFormat(text)
   if a:text == ''
     throw "code-snippet.vim: one of the format variables is empty."
           \ . "  see :help code-snippet-format."

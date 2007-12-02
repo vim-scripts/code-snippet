@@ -1,7 +1,7 @@
 *code-snippet.txt*	Simple input assistance of code snippets or idioms
 			for Vim version 7.0 or later
 			by MIYAKAWA Taku <ripjohn@s28.xrea.com>
-			Last Change: 2007-12-02.
+			Last Change: 2007-12-03.
 
 code-snippet plugin				*code-snippet*
 
@@ -278,6 +278,11 @@ of|'foldmethod'|is "marker".
 ]]]
 ==============================================================================
 CHANGELOG					*code-snippet-changelog* [[[
+
+2007-12-03
+	- Fixed a bug that "|" is not escaped to <Bar> in :StringAbbr...
+	- Changed the default format of placeholders from "(_ ... _)" to
+	  "[| ... |]".
 
 2007-12-02
 	- Changed the name from "template plugin" to "code-snippet".
