@@ -1,7 +1,7 @@
 " code-snippet.vim: Simple input assistance of code snippets or idioms
 "
 " Maintainer:  MIYAKAWA Taku <ripjohn@s28.xrea.com>
-" Last Change: 2007-12-03.
+" Last Change: 2007-12-04.
 " Require:     Vim 7.0 or later
 
 " Initialization: {{{
@@ -157,9 +157,9 @@ endfunction
 
 function! s:GetFormat()
   let opener = exists('b:CodeSnippet_opener') ? b:CodeSnippet_opener :
-        \ exists('g:CodeSnippet_opener') ? g:CodeSnippet_opener : '[|'
+        \ exists('g:CodeSnippet_opener') ? g:CodeSnippet_opener : '[~'
   let closer = exists('b:CodeSnippet_closer') ? b:CodeSnippet_closer :
-        \ exists('g:CodeSnippet_closer') ? g:CodeSnippet_closer : '|]'
+        \ exists('g:CodeSnippet_closer') ? g:CodeSnippet_closer : '~]'
   let defind = exists('b:CodeSnippet_defind') ? b:CodeSnippet_defind :
         \ exists('g:CodeSnippet_defind') ? g:CodeSnippet_defind : ':'
   return [s:EscapeFormat(opener), s:EscapeFormat(closer), s:EscapeFormat(defind)]

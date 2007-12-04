@@ -1,7 +1,7 @@
 *code-snippet.txt*	Simple input assistance of code snippets or idioms
-			for Vim version 7.0 or later
+		for Vim version 7.0 or later
 			by MIYAKAWA Taku <ripjohn@s28.xrea.com>
-			Last Change: 2007-12-03.
+			Last Change: 2007-12-04.
 
 code-snippet plugin				*code-snippet*
 
@@ -49,7 +49,7 @@ This plugin provides a simple input assistance of code snippets.  A code
 snippet is an idiom much used in source codes or markuped texts.  First, you
 should register a snippet.  Type like this in the commandline mode.
 >
-	:StringAbbrLocal fputs() "fputs((_str_), (_fp:stderr_))(__)"
+	:StringAbbrLocal fputs() "fputs([~str~], [~fp:stderr~])[~~]"
 <
 Then type like this in the insert mode.
 >
@@ -57,17 +57,17 @@ Then type like this in the insert mode.
 <
 And press <S-CR>.
 >
-	fputs((_str_), (_fp:stderr_))(__)
+	fputs([~str~], [~fp:stderr~])[~~]
 <
-The line is expanded like above and "(_str_)" is selected in the visual mode.
-"(_..._)" is a placeholder.  Each time you press <S-CR>, the cursor jumps to
+The line is expanded like above and "[~str~]" is selected in the visual mode.
+"[~...~]" is a placeholder.  Each time you press <S-CR>, the cursor jumps to
 the next placeholder.  Press <C-CR> to jump back to the previous placeholder.
 
 When you press <CR>, the placeholder under the cursor is cut and Vim switches
 to the insert mode.  So that you can fill in the place.  Pressing <CR> at the
-second placeholder "(_fp:stderr_)", the default string "stderr" is inserted.
+second placeholder "[~fp:stderr~]", the default string "stderr" is inserted.
 If you want to insert another word, it can be deleted by pressing <C-U> (see
-|i_Ctrl-U|).  The last empty placeholder "(__)" is not selected by <S-CR>, but
+|i_Ctrl-U|).  The last empty placeholder "[~~]" is not selected by <S-CR>, but
 simply deleted so that you can insert a semicolon and so on.
 
 To read this help file, type ":help code-snippet" in the commandline mode.
@@ -97,8 +97,8 @@ also|abbreviations|on the Vim help for further information.
 
 The following ex commands have a same meaning.
 >
-	:StringAbbrLocal while() "while((_cond_)) {\n(_body_)\n}"
-	:iabbr <buffer> while() while((_cond_))<Space>{<CR>(_body_)<CR>}
+	:StringAbbrLocal while() "while([~cond~]) {\n[~body~]\n}"
+	:iabbr <buffer> while() while([~cond~])<Space>{<CR>[~body~]<CR>}
 <
 In the above sample, the trigger string is terminated by extra "()".  It is in
 order to avoid expansion when you intend to write literally "while(n > 0)..."
@@ -112,7 +112,7 @@ snippets.  Mostly "\t" or <Tab> at the top of line is not needed, because the
 autoindent works.  If you want to adjust indents, insert <C-T> or <C-D> into
 snippets like this.
 >
-	:StringAbbrLocal main() "int main(void)\n{\n(__)\nreturn 0;\<C-D>\n}"
+	:StringAbbrLocal main() "int main(void)\n{\n[~~]\nreturn 0;\<C-D>\n}"
 <
 In that sample, <C-D> is inserted at the end of the return statement to remove
 an extra indent.  See|i_Ctrl-T|,|i_Ctrl-D|about those commands, and see
@@ -133,8 +133,8 @@ To register snippets for C source files, make "c_snippet.vim" in
 	if exists(':StringAbbrLocal') != 2
 	  finish
 	endif
-	StringAbbrLocal while() "while((_cond_)) {\n(_body_)\n}"
-	StringAbbrLocal fgets() "fgets((_buf_), (_size_), (_fp:stdin_))(__)"
+	StringAbbrLocal while() "while([~cond~]) {\n[~body~]\n}"
+	StringAbbrLocal fgets() "fgets([~buf~], [~size~], [~fp:stdin~])[~~]"
 	" ...
 <
 In a file name, a part of "c" before an underline is a name of the file type.
@@ -163,7 +163,7 @@ Then, in each mode, the cursor jumps to the next/previous placeholder and the
 placeholder is selected in the visual mode.  If there is no placeholder
 below/above the current position, this command tries to jump to the first/last
 placeholder of the buffer.  If the placeholder is empty or only contains space
-characters or line breaks like "(_  _)", it is simply deleted and Vim switches
+characters or line breaks like "[~  ~]", it is simply deleted and Vim switches
 to the insert mode.
 
 <S-CR> in the insert mode starts searching from where the inserting started.
@@ -240,8 +240,8 @@ A placeholder is a string delimited by an "opener" and a "closer".  If it
 contains a "defind", the following string is regarded as the default text.
 This is the initial setting.
 
-	opener	"(_"
-	closer	"_)"
+	opener	"[~"
+	closer	"~]"
 	defind	":"
 
 If you want to change the format, set these variables.
@@ -278,6 +278,13 @@ of|'foldmethod'|is "marker".
 ]]]
 ==============================================================================
 CHANGELOG					*code-snippet-changelog* [[[
+
+2007-12-04
+	- Corrected help files.  Placeholders were still written as
+	  "(_ ... _)".
+	- Sorry, changed again the default format of placeholders from
+	  "[| ... |]" to "[~ ... ~]".  The format of "[| ... |]" causes
+	  a trouble in help files.
 
 2007-12-03
 	- Fixed a bug that "|" is not escaped to <Bar> in :StringAbbr...
