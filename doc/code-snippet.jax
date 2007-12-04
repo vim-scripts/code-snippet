@@ -1,7 +1,7 @@
 *code-snippet.txt*	簡潔なコード・スニペット(慣用コード断片)入力支援機構
 			for Vim バージョン 7.0 以降
 			by 宮川拓 <ripjohn@s28.xrea.com>
-			Last Change: 2007-12-04.
+			Last Change: 2007-12-05.
 
 code-snippet プラグイン				*code-snippet*
 
@@ -51,7 +51,7 @@ Vimヘルプファイルの|add-plugin|と|add-local-help|を参照してくだ�
 す。まず、スニペットを登録しましょう。コマンドラインモードで次のように入力して
 ください。
 >
-	:StringAbbrLocal fputs() "fputs([|str|], [|fp:stderr|])[||]"
+	:StringAbbrLocal fputs() "fputs([~str~], [~fp:stderr~])[~~]"
 <
 次に挿入モードで次のように入力してください。
 >
@@ -59,10 +59,10 @@ Vimヘルプファイルの|add-plugin|と|add-local-help|を参照してくだ�
 <
 ここで<S-CR>を押すと、
 >
-	fputs([|str|], [|fp:stderr|])[||]
+	fputs([~str~], [~fp:stderr~])[~~]
 <
-以上のように展開され、 "[|str|]" がヴィジュアルモードで選択されます。このよう
-に "[|" と "|]" で囲まれた部分がプレースホルダです。<S-CR>を押すごとに、次のプ
+以上のように展開され、 "[~str~]" がヴィジュアルモードで選択されます。このよう
+に "[~" と "~]" で囲まれた部分がプレースホルダです。<S-CR>を押すごとに、次のプ
 レースホルダが選択されます。<C-CR>を押すと、ひとつ前のプレースホルダに飛びま
 す。
 
